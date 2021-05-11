@@ -40,14 +40,14 @@ aedes.on('subscribe', function (subscriptions, client) {
 })
 
 aedes.on('client', function (client) {
-  console.log('new client', client.id)
+  console.log('New client connecting', client.id)
 })
 
 aedes.on('clientReady', function (client) {
-  console.log('new client', client.id)
+  console.log('New client connected', client.id)
 })
 
 aedes.on('clientDisconnect', function (client) {
-  console.log('new client', client.id)
+  console.log('New client disconnected', client.id)
 })
 
