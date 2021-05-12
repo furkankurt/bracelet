@@ -1,9 +1,25 @@
 'use strict'
 var mq = require('mqemitter-redis')()
-var persistence = require('.')()
+var persistence = require('aedes-persistence')()
 const aedes = require('aedes')({
-  mq,
-  persistence
+  id: 'BROKER_1',
+  mq: mq({
+    port: 6379,
+    host: 'localhost',
+    password: '',
+    db: 12
+  }),
+  persistence: persistence({
+    port: 6379,          // Redis port
+    host: 'localhost',   // Redis host
+    family: 4,           // 4 (IPv4) or 6 (IPv6)
+    password: '',
+    db: 12,
+    maxSessionDelivery: 100, // maximum offline messages deliverable on client CONNECT, default is 1000
+    packetTTL: function (packet) { // offline message TTL, default is disabled
+      return 10 //seconds
+    }
+  })
 })
 
 const server = require('net').createServer(aedes.handle)
