@@ -3,13 +3,13 @@ var mq = require('mqemitter-redis')()
 var persistence = require('aedes-persistence')()
 const aedes = require('aedes')({
   id: 'BROKER_1',
-  mq: mq({
+  mq: redis({
     port: 6379,
     host: 'localhost',
     password: '',
     db: 12
   }),
-  persistence: persistence({
+  persistence: aedesPersistenceRedis({
     port: 6379,          // Redis port
     host: 'localhost',   // Redis host
     family: 4,           // 4 (IPv4) or 6 (IPv6)
